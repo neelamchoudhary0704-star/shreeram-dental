@@ -1014,6 +1014,26 @@ footer{
   transform:none;
   transition:none;
 }
+
+/* Custom Glowing Cursor */
+.cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #38b9c0;
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    mix-blend-mode: difference;
+    transition: width 0.2s, height 0.2s, background 0.2s;
+}
+
+.cursor.active {
+    width: 40px;
+    height: 40px;
+    background: rgba(56, 185, 192, 0.3);
+}
 </style>
 </head>
 <body>
@@ -1494,6 +1514,39 @@ footer{
     </div>
   </div>
 </footer>
+
+<!-- Appointment Modal -->
+<div id="appointmentModal" class="modal">
+    <div class="modal-content">
+        <span onclick="closeModal()" class="close">×</span>
+        <h2>Book Your Appointment</h2>
+        <p>Fill the details and we'll confirm your slot</p>
+
+        <form id="appointmentForm">
+            <input type="text" id="name" placeholder="Your Full Name *" required>
+            <input type="tel" id="phone" placeholder="Phone Number *" required>
+            <input type="email" id="email" placeholder="Email Address">
+            
+            <input type="date" id="date" required>
+            
+            <select id="service" required>
+                <option value="">Select Service *</option>
+                <option value="Dental Implants">Dental Implants</option>
+                <option value="Braces Treatment">Braces Treatment</option>
+                <option value="Root Canal">Root Canal Treatment</option>
+                <option value="Teeth Whitening">Teeth Whitening</option>
+                <option value="Smile Design">Smile Design</option>
+                <option value="General Checkup">General Checkup</option>
+            </select>
+
+            <textarea id="message" placeholder="Any specific concern or message..."></textarea>
+
+            <button type="button" onclick="sendToWhatsApp()" class="btn btn-primary">
+                Send via WhatsApp
+            </button>
+        </form>
+    </div>
+</div>
 
 <script>
 /* ═══ BACKGROUND PATHS ═══ */
@@ -1989,5 +2042,59 @@ window.addEventListener('resize',()=>goTesti(tc));
   window.addEventListener('resize',()=>{setSize();updateCamera();},{passive:true});
 })();
 </script>
+<script>
+function sendToWhatsApp() {
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const email = document.getElementById('email').value;
+    const date = document.getElementById('date').value;
+    const service = document.getElementById('service').value;
+    const message = document.getElementById('message').value;
+
+    if (!name || !phone || !service || !date) {
+        alert("Please fill Name, Phone, Service & Date fields");
+        return;
+    }
+
+    const whatsappMessage = `🦷 *New Appointment Request*%0A%0A` +
+        `*Name:* ${name}%0A` +
+        `*Phone:* ${phone}%0A` +
+        `*Email:* ${email || 'Not Provided'}%0A` +
+        `*Preferred Date:* ${date}%0A` +
+        `*Service:* ${service}%0A` +
+        `*Message:* ${message || 'No message'}%0A%0A` +
+        `Please confirm the appointment.`;
+
+    const hospitalNumber = "9197878534522";   // ← Yaha apna hospital ka WhatsApp number daal do (with country code)
+
+    const whatsappURL = `https://wa.me/${hospitalNumber}?text=${whatsappMessage}`;
+    
+    window.open(whatsappURL, '_blank');
+    
+    // Optional: Form reset
+    document.getElementById('appointmentForm').reset();
+}
+</script>
+<script>
+    const cursor = document.getElementById('customCursor');
+
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+
+    // Hover effect on buttons and links
+    const hoverElements = document.querySelectorAll('a, button, .btn, input, select');
+    hoverElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.classList.add('active');
+        });
+        el.addEventListener('mouseleave', () => {
+            cursor.classList.remove('active');
+        });
+    });
+</script>
+<!-- Custom Cursor -->
+<div class="cursor" id="customCursor"></div>
 </body>
 </html>
