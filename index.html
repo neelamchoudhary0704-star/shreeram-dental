@@ -1084,8 +1084,90 @@ footer{
         Smile with Confidence at Shree Ram Diagnostic &amp; Dental Hospital — under the expert care of <strong>Dr. K.K. Saini</strong>, VKI Jaipur.
       </p>
       <div class="hero-actions reveal">
-        <a href="https://wa.me/919785354522" class="btn btn-teal" target="_blank">
+        <a href="https://wa.me/919785354522" class="btn btn-teal" target="_blank">        
           📅 Book Appointment
+          <!-- ==================== APPOINTMENT BOOKING MODAL ==================== -->
+<div id="appointmentModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; padding: 15px; box-sizing: border-box;">
+    
+    <div style="background: #0d1b35; max-width: 460px; width: 100%; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.6);">
+        
+        <!-- Header -->
+        <div style="background: linear-gradient(135deg, #0a3d62, #0f5e50); padding: 20px 24px; position: relative;">
+            <h2 style="margin:0; color:white; font-size:22px;">Book Your Appointment</h2>
+            <p style="margin:6px 0 0; color:#a3e4d4; font-size:14px;">Shree Ram Dental Hospital • Dr. K.K. Saini</p>
+            <span onclick="closeModal()" style="position:absolute; top:15px; right:20px; font-size:28px; color:white; cursor:pointer;">×</span>
+        </div>
+
+        <!-- Form -->
+        <div style="padding:24px;">
+            <form id="apptForm">
+                <input type="text" id="appt-name" placeholder="Full Name *" required style="width:100%; padding:12px; margin:8px 0; border-radius:8px; border:1px solid #1e3a5f; background:#081527; color:white;">
+                
+                <input type="tel" id="appt-phone" placeholder="Phone Number *" required style="width:100%; padding:12px; margin:8px 0; border-radius:8px; border:1px solid #1e3a5f; background:#081527; color:white;">
+                
+                <input type="email" id="appt-email" placeholder="Email (Optional)" style="width:100%; padding:12px; margin:8px 0; border-radius:8px; border:1px solid #1e3a5f; background:#081527; color:white;">
+                
+                <input type="date" id="appt-date" required style="width:100%; padding:12px; margin:8px 0; border-radius:8px; border:1px solid #1e3a5f; background:#081527; color:white;">
+                
+                <select id="appt-service" required style="width:100%; padding:12px; margin:8px 0; border-radius:8px; border:1px solid #1e3a5f; background:#081527; color:white;">
+                    <option value="">Select Service *</option>
+                    <option>Dental Implants</option>
+                    <option>Braces Treatment</option>
+                    <option>Root Canal Treatment</option>
+                    <option>Teeth Whitening</option>
+                    <option>Smile Design</option>
+                    <option>General Checkup</option>
+                </select>
+
+                <textarea id="appt-message" placeholder="Any specific problem or message..." style="width:100%; height:80px; padding:12px; margin:8px 0; border-radius:8px; border:1px solid #1e3a5f; background:#081527; color:white; resize:vertical;"></textarea>
+
+                <button type="button" onclick="sendToWhatsApp()" style="width:100%; padding:16px; background:#25D366; color:white; font-weight:bold; border:none; border-radius:10px; margin-top:10px; font-size:16px; cursor:pointer;">
+                    Send on WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== JAVASCRIPT ==================== -->
+<script>
+function openAppointmentModal() {
+    document.getElementById('appointmentModal').style.display = 'flex';
+}
+
+function closeModal() {
+    document.getElementById('appointmentModal').style.display = 'none';
+}
+
+function sendToWhatsApp() {
+    const name = document.getElementById('appt-name').value.trim();
+    const phone = document.getElementById('appt-phone').value.trim();
+    const email = document.getElementById('appt-email').value.trim();
+    const date = document.getElementById('appt-date').value;
+    const service = document.getElementById('appt-service').value;
+    const message = document.getElementById('appt-message').value.trim();
+
+    if (!name || !phone || !date || !service) {
+        alert("Please fill all required fields (*)");
+        return;
+    }
+
+    const text = `🦷 *New Appointment Request*%0A%0A` +
+        `*Name:* ${name}%0A` +
+        `*Phone:* ${phone}%0A` +
+        `*Email:* ${email || 'Not given'}%0A` +
+        `*Date:* ${date}%0A` +
+        `*Service:* ${service}%0A` +
+        `*Message:* ${message || 'No message'}`;
+
+    const number = "9197878534522";   // ← Change this to your number if needed
+
+    window.open(`https://wa.me/${number}?text=${text}`, '_blank');
+    
+    // Reset form
+    document.getElementById('apptForm').reset();
+}
+</script>
         </a>
         <a href="https://wa.me/919785354522" class="btn btn-wa" target="_blank">
           💬 WhatsApp Now
@@ -1430,7 +1512,7 @@ footer{
         <div class="ci reveal"><div class="ci-icon">📍</div><div><div class="ci-label">Address</div><div class="ci-val">New Loha Mandi Mod, Road No. 14,<br>VKI, Jaipur, Rajasthan 302013</div></div></div>
         <div class="ci reveal"><div class="ci-icon">📱</div><div><div class="ci-label">Phone / WhatsApp</div><div class="ci-val"><a href="tel:+919785354522">+91 97853 54522</a><br><a href="https://wa.me/919785354522" style="color:var(--teal)">Chat on WhatsApp →</a></div></div></div>
         <div class="ci reveal"><div class="ci-icon">🕐</div><div style="width:100%"><div class="ci-label">Clinic Timings</div><div class="timings-grid"><div class="trow"><span>Morning</span><span>9:00 AM – 1:00 PM</span></div><div class="trow"><span>Evening</span><span>4:00 PM – 9:00 PM</span></div><div class="trow"><span>Days</span><span>Mon – Sat</span></div></div></div></div>
-        <a href="https://wa.me/919785354522" class="btn btn-teal reveal" target="_blank" style="text-align:center;justify-content:center">
+        <a href="https://wa.me/919785354522" class="btn btn-teal reveal" target="_blank" style="text-align:center;justify-content:center" onclick="openAppointmentModal()">
           💬 Book Appointment on WhatsApp
         </a>
       </div>
