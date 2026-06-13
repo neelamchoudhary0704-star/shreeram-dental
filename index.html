@@ -1016,45 +1016,6 @@ footer{
 }
 </style>
 </head>
-<script>
-function sendToWhatsApp() {
-    const name = document.getElementById('name').value;
-    const phone = document.getElementById('phone').value;
-    const email = document.getElementById('email').value;
-    const date = document.getElementById('date').value;
-    const service = document.getElementById('service').value;
-    const message = document.getElementById('message').value;
-
-    if (!name || !phone || !service || !date) {
-        alert("Please fill all required fields (*)");
-        return;
-    }
-
-    const text = `🦷 *New Appointment Request*%0A%0A` +
-        `*Name:* ${name}%0A` +
-        `*Phone:* ${phone}%0A` +
-        `*Email:* ${email || 'N/A'}%0A` +
-        `*Date:* ${date}%0A` +
-        `*Service:* ${service}%0A` +
-        `*Message:* ${message || 'No message'}`;
-
-    const number = "9197878534522";   // ← Yaha apna number daal do
-
-    window.open(`https://wa.me/${number}?text=${text}`, '_blank');
-    
-    // Form reset
-    document.getElementById('appointmentForm').reset();
-}
-
-function closeModal() {
-    document.getElementById('appointmentModal').style.display = 'none';
-}
-
-// Open modal function (jaha se bhi button hai usme ye call karo)
-function openAppointmentModal() {
-    document.getElementById('appointmentModal').style.display = 'flex';
-}
-</script>
 <body>
 
     <h1>Shree Ram Dental Hospital Jaipur</h1>
@@ -2027,68 +1988,6 @@ window.addEventListener('resize',()=>goTesti(tc));
 
   window.addEventListener('resize',()=>{setSize();updateCamera();},{passive:true});
 })();
-</script>
-
-<!-- New WhatsApp Booking Modal -->
-<div id="appointmentModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; align-items: center; justify-content: center;">
-    <div style="background: #0f172a; width: 90%; max-width: 420px; border-radius: 16px; padding: 25px; position: relative;">
-        <span onclick="closeModal()" style="position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: #94a3b8;">×</span>
-        
-        <h2 style="color: #38b9c0; margin-bottom: 8px;">Book Your Appointment</h2>
-        <p style="color: #cbd5e1; margin-bottom: 20px;">Fill details & we'll confirm on WhatsApp</p>
-
-        <form id="appointmentForm">
-            <input type="text" id="name" placeholder="Full Name *" style="width:100%; padding:12px; margin:8px 0; border-radius:8px; border:none; background:#1e2937; color:white;" required>
-            
-            <input type="tel" id="phone" placeholder="Phone Number *" style="width:100%; padding:12px; margin:8px 0; border-radius:8px; border:none; background:#1e2937; color:white;" required>
-            
-            <input type="email" id="email" placeholder="Email (Optional)" style="width:100%; padding:12px; margin:8px 0; border-radius:8px; border:none; background:#1e2937; color:white;">
-            
-            <input type="date" id="date" style="width:100%; padding:12px; margin:8px 0; border-radius:8px; border:none; background:#1e2937; color:white;" required>
-            
-            <select id="service" style="width:100%; padding:12px; margin:8px 0; border-radius:8px; border:none; background:#1e2937; color:white;" required>
-                <option value="">Select Service *</option>
-                <option value="Dental Implants">Dental Implants</option>
-                <option value="Braces Treatment">Braces / Orthodontics</option>
-                <option value="Root Canal">Root Canal Treatment</option>
-                <option value="Teeth Whitening">Teeth Whitening</option>
-                <option value="Smile Design">Smile Design</option>
-                <option value="General Checkup">General Checkup</option>
-            </select>
-
-            <textarea id="message" placeholder="Any message or problem..." style="width:100%; height:80px; padding:12px; margin:8px 0; border-radius:8px; border:none; background:#1e2937; color:white;"></textarea>
-
-            <button type="button" onclick="sendToWhatsApp()" style="width:100%; padding:14px; background:#38b9c0; color:black; font-weight:bold; border:none; border-radius:8px; margin-top:10px; cursor:pointer;">
-                Send on WhatsApp
-            </button>
-        </form>
-    </div>
-</div>
-
-<script>
-  function closeModal() {
-    const modal = document.getElementById('appointmentModal');
-    if (modal) modal.style.display = 'none';
-  }
-
-  function sendToWhatsApp() {
-    const name = document.getElementById('name')?.value.trim();
-    const phone = document.getElementById('phone')?.value.trim();
-    const email = document.getElementById('email')?.value.trim();
-    const date = document.getElementById('date')?.value;
-    const service = document.getElementById('service')?.value;
-    const message = document.getElementById('message')?.value.trim();
-
-    if (!name || !phone || !date || !service) {
-      alert('Please fill in your name, phone, date and service.');
-      return;
-    }
-
-    const text = `Hello! I would like to book an appointment.\nName: ${name}\nPhone: ${phone}\nEmail: ${email || 'Not provided'}\nService: ${service}\nDate: ${date}\nMessage: ${message || 'No additional message'}`;
-    const waUrl = `https://wa.me/919785354522?text=${encodeURIComponent(text)}`;
-    window.open(waUrl, '_blank');
-    closeModal();
-  }
 </script>
 </body>
 </html>
